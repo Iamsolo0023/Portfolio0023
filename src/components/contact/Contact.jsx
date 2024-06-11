@@ -23,22 +23,37 @@ const Contact = () => {
   const formRef = useRef();
   const [error, setError] = useState(false);
   const [success, setSuccess] = useState(false);
+  const [emailError, setEmailError] = useState("");
 
   const isInView = useInView(ref, { margin: "-100px" });
 
+  const validateEmail = (email) => {
+    const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return re.test(String(email).toLowerCase());
+  };
+
   const sendEmail = (e) => {
     e.preventDefault();
+    const form = formRef.current;
+    const email = form.email.value;
 
+    if (!validateEmail(email)) {
+      setEmailError("Invalid email format");
+      return;
+    }
+
+    setEmailError("");
+    
     emailjs
       .sendForm(
         "service_94y20xo",
         "template_v10u2oh",
-        formRef.current,
+        form,
         "pX_2hasGmGcuvjXIW"
       )
       .then(
         (result) => {
-          setSuccess(true)
+          setSuccess(true);
         },
         (error) => {
           setError(true);
@@ -106,12 +121,17 @@ const Contact = () => {
           whileInView={{ opacity: 1 }}
           transition={{ delay: 4, duration: 1 }}
         >
-          <input type="text" required placeholder="Name" name="name"/>
-          <input type="email" required placeholder="Email" name="email"/>
-          <textarea rows={8} placeholder="Please Provide your Name, Email, Phonenumber here along with the query." name="message"/>
+          <input type="text" required placeholder="Name" name="name" />
+          <input type="email" required placeholder="Email" name="email" />
+          <textarea
+            rows={8}
+            placeholder="Please Provide your Name, Email, Phonenumber here along with the query."
+            name="message"
+          />
           <button>Submit</button>
-          {error && "Error"}
-          {success && "Success"}
+          {emailError && <p className="error">{emailError}</p>}
+          {error && <p className="error">Error</p>}
+          {success && <p className="success">Success</p>}
         </motion.form>
       </div>
     </motion.div>
