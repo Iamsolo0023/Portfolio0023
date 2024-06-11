@@ -32,35 +32,34 @@ const Contact = () => {
     return re.test(String(email).toLowerCase());
   };
 
-  const sendEmail = (e) => {
-    e.preventDefault();
-    const form = formRef.current;
-    const email = form.email.value;
+ const sendEmail = (e) => {
+  e.preventDefault();
+  const form = formRef.current;
 
-    if (!validateEmail(email)) {
-      setEmailError("Invalid email format");
-      return;
-    }
+  if (!validateEmail(form.email.value)) {
+    setEmailError("Invalid email format");
+    return;
+  }
 
-    setEmailError("");
-    
-    emailjs
-      .sendForm(
-        "service_94y20xo",
-        "template_v10u2oh",
-        form,
-        "pX_2hasGmGcuvjXIW"
-      )
-      .then(
-        (result) => {
-          setSuccess(true);
-        },
-        (error) => {
-          setError(true);
-        }
-      );
-  };
+  setEmailError("");
 
+  emailjs
+    .sendForm(
+      "service_94y20xo",
+      "template_v10u2oh",
+      form, // Use form directly instead of formRef.current
+      "pX_2hasGmGcuvjXIW"
+    )
+    .then(
+      (result) => {
+        setSuccess(true);
+      },
+      (error) => {
+        setError(true);
+      }
+    );
+};
+  
   return (
     <motion.div
       ref={ref}
