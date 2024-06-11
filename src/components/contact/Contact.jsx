@@ -31,10 +31,10 @@ const Contact = () => {
 
     emailjs
       .sendForm(
-        "service_94y20xo",
+        "service_7lbrteh",
         "template_2vb3ura",
         formRef.current,
-        "pX_2hasGmGcuvjXIW"
+        "pwHkaSODknymTaIXg"
       )
       .then(
         (result) => {
@@ -58,15 +58,15 @@ const Contact = () => {
         <motion.h1 variants={variants}>Let’s work together</motion.h1>
         <motion.div className="item" variants={variants}>
           <h2>Mail</h2>
-          <span>hopesalive0023@gmail.com</span>
+          <span>hello@react.dev</span>
         </motion.div>
         <motion.div className="item" variants={variants}>
           <h2>Address</h2>
-          <span>Banglore-India</span>
+          <span>Hello street New York</span>
         </motion.div>
         <motion.div className="item" variants={variants}>
           <h2>Phone</h2>
-          <span>+91 99250 96783</span>
+          <span>+1 234 5678</span>
         </motion.div>
       </motion.div>
       <div className="formContainer">
@@ -108,7 +108,7 @@ const Contact = () => {
         >
           <input type="text" required placeholder="Name" name="name"/>
           <input type="email" required placeholder="Email" name="email"/>
-          <textarea rows={8} placeholder="Please include your Email address, Name, Phone number along with the query here" name="message"/>
+          <textarea rows={8} placeholder="Include your Email address, Name, Phone number along with the query" name="message"/>
           <button>Submit</button>
           {error && "Error"}
           {success && "Success"}
